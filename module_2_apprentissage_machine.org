@@ -1,14 +1,12 @@
 #+LANGUAGE: fr
-#+OPTIONS: title:nil toc:nil num:nil
+#+OPTIONS: title:nil toc:nil
 #+LaTeX_HEADER: \usepackage{caption}
 #+LaTeX_HEADER: \captionsetup[figure]{labelformat=empty}
 #+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \setcounter{section}{1}
 
-* INF 1901 - Module 2 - Apprentissage machine
-** Quels sont les objectifs de ce module?
-
+* INF 1901 - Apprentissage machine
 ** Qu'est-ce que l'apprentissage machine?
-
 L'apprentissage machine (AM) est un ensemble de techniques
 mathématiques qui permettent de résoudre des problèmes ardus en
 informatique, souvent associés à l'intelligence artificielle (IA) :
@@ -28,7 +26,7 @@ philosophiques, comme le connexionnisme par exemple, qui sont
 généralement associés à l'étude de l'intelligence humaine ou animale.
 
 #+CAPTION: Problème classique versus problème d'apprentissage
-#+ATTR_LATEX: :width 0.8\textwidth
+#+ATTR_LATEX: :width 0.8\textwidth :float nil
 [[file:./images/abeille.png]]
 
 En général, l'apprentissage machine utilise des données (qu'on appelle
@@ -54,7 +52,6 @@ généraliser à n'importe quelle image (par contre, la question se pose
 vache!). Une bonne capacité de généralisation est le but fondamental
 de l'AM et de l'IA en général, et est reliée à ce qu'on entend par
 intelligence, scientifiquement parlant.
-
 ** L'apprentissage machine dans un vrai scénario industriel
 *** Situation
 
@@ -253,7 +250,6 @@ en capter), il est possible que notre modèle se comporte moins bien,
 et fasse donc plus d'erreurs. Il sera donc peut-être nécessaire de
 procéder à son réentraînement.
 
-
 ** En quoi l'AM diffère de la programmation traditionnelle?
 
 Bien que l'apprentissage machine requiert de la programmation, il
@@ -418,7 +414,6 @@ learning).
 - Etc.
 
 ** Concepts
-
 *** Données
 
 *** Représentation
