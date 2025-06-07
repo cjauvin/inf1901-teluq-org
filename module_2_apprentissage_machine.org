@@ -251,7 +251,6 @@ et fasse donc plus d'erreurs. Il sera donc peut-être nécessaire de
 procéder à son réentraînement.
 
 ** En quoi l'AM diffère de la programmation traditionnelle?
-
 Bien que l'apprentissage machine requiert de la programmation, il
 s'agit d'un paradigme entièrement différent de celui de la
 programmation.
@@ -271,29 +270,31 @@ effectuées sur les données, pour les transformer en réponse. Il est
 important de comprendre que même si un modèle d'AM est avant tout un
 objet mathématique (un modèle avec ses paramètres), son implémentation
 concrète se fait quand même toujours avec un langage de programmation.
-
 ** En quoi l'AM diffère de l'IA?
-
 L'intelligence artificielle est le domaine plus vaste, qui englobe
-l'apprentissage machine. Les deux ont des méthodes profondément
+l'apprentissage machine et l'intelligence artificielle dite symbolique
+(en anglais on utilise parfois le terme GOFAI, "good old fashioned
+artificial intelligence"). Il est important de comprendrre que ces
+deux disciplines sont distinctes et ont des méthodes profondément
 différentes, et l'histoire de leur développement est entièrement
 différente. Dans un certain sens, l'AM est une forme plus spécialisée
 et un peu plus récente d'IA, plus mathématique, moins symbolique, et
-clairement celle qui domine la période actuelle.
-
+clairement celle qui domine la période actuelle. Les mathématiques qui
+sont le plus souvent associées à l'apprentissage machine sont
+l'algèbre linéaire et les probabilités, qui elles-mêmes entretiennent
+des liens étroits.
 ** En quoi l'AM diffère des statistiques?
-
-L'apprentissage machine, conceptuellement, est pratiquement identique
-aux statistiques. Dans les deux cas on parle de modèles,
-d'entrainement (ou recherche des paramètres), d'inférence, etc.
-Toutefois l'AM est plus axée sur les problèmes dont la modélisation se
-fait en très haute dimension, comme l'analyse d'images ou le
-traitement du langage. De plus, l'accent en AM est davantage mis sur
-les aspects computationnels, par opposition aux mathématiques (bien
-que le AM demeure très mathématique en substance).
-
+L'apprentissage machine, conceptuellement, est pratiquement un
+synonyme de statistiques. Les deux domaines entretiennent des
+relations très étroites, et la distinction est parfois assez
+difficile. Dans les deux cas on parle de modèles, d'entraînement (ou
+recherche des paramètres), d'inférence, etc. Toutefois l'AM est plus
+axée sur les problèmes dont la modélisation se fait en très haute
+dimension, comme l'analyse d'images ou le traitement du langage. De
+plus, l'accent en AM est davantage mis sur les aspects
+computationnels, par opposition aux mathématiques (bien que le AM
+demeure très mathématique en substance).
 ** Comment représenter les données
-
 Un problème crucial qui se pose en AM est comment adéquatement
 représenter les données, pour qu'elles soient traitables et
 compréhensibles à la fois par l'ordinateur ainsi que le modèle (ou
@@ -301,7 +302,7 @@ algorithme) d'apprentissage qu'on veut utiliser. Il existe de
 nombreuses manières de faire cela, mais un thème récurrent est
 l'utilisation d'espaces vectoriels pour représenter les données, ce
 qui est très étroitement relié au fait que la plupart des techniques
-d'AM touche de près ou de loin l'algèbre linéaire. Une image, par
+d'AM touchent de près ou de loin l'algèbre linéaire. Une image, par
 exemple, sera un point dans un espace vectoriel à très haute dimension
 (autant de dimensions qu'il y a de pixels!), et un mot pourrait être
 un point dans un espace vectoriel extrêmement épars (sparse) pour
@@ -309,88 +310,101 @@ représenter la présence ou l'absence d'un mot. Il est également
 possible de représenter le sens des mots à l'aide d'un espace
 vectoriel, dont les grands modèles de langage (GML) font usage.
 
-On parle souvent de "features" en AM, qui sont les caractéristiques,
-souvent numériques, mais pas toujours, des instances, ou des objets
-que l'on tente de traiter. Classiquement, on fait de l'ingénierie de
-features sur les données, pour tenter de les transformer de manière à
-améliorer les performances d'un algorithme. Le AM très moderne qui
-utilise les réseaux de neurones profonds tend à faire en sorte qu'on a
-moins besoin de ce genre de techniques, car les transformations sont
-faites automatiquement, par le réseau de neurones lui-même.
-
+On parle souvent de "caractéristiques" ("features" en anglais) en AM,
+qui sont les valeurs souvent numériques, mais pas toujours, qui
+décrivent les instances, ou des objets que l'on tente de traiter.
+Classiquement, on fait de "l'ingénierie de caractéristiques" sur les
+données, pour tenter de les transformer de manière à améliorer les
+performances d'un algorithme. Le AM très moderne qui utilise les
+réseaux de neurones profonds tend à faire en sorte qu'on a moins
+besoin de ce genre de techniques, car les transformations sont faites
+automatiquement, par le réseau de neurones lui-même.
 ** Les différents paradigmes de l'AM
-
 Il existe plusieurs manières de catégoriser les algorithmes
 d'apprentissage machine, selon la nature et la structure des problèmes
 qu'ils tentent de résoudre. La catégorisation suivante est très
 classique.
-
 *** Apprentissage supervisé (classification, regression)
-
 L'apprentissage supervisé fonctionne à partir de données pour
 lesquelles la "bonne réponse" (i.e. celle qu'on aimerait que
-l'algorithme donne systématiquement) est fournie, en tant que donnée
-d'entrainement.
-
+l'algorithme fournisse systématiquement, une fois entrainé) est
+fournie, en tant que donnée d'entrainement.
 **** Régression
-
 Une régression est une famille d'algorithmes d'apprentissage supervisé
 (ou plus classiquement, de modélisation statistique) dont le but est
 de découvrir une fonction numérique continue, au sens classique
 mathématique (dans sa forme la plus simple, une fonction associe une
 valeur numérique du domaine X vers l'image Y).
 
-- Régression linéaire (ex. nombre de pièces, année de construction -> prix d'une maison)
-
+- Régression linéaire (ex. à partir du nombre de pièces et l'année de construction, on aimerait prédire le prix d'une maison)
+- Réseau de neurones
 **** Classification
+Une autre famille d'algorithmes d'apprentissage supervisé tente plutôt
+de découvrir une fonction de classification, qui associe une série de
+caractéristiques à une catégorie particulière (dont le nombre est fini
+et connu d'avance).
 
-Une autre famille d'algorithmes d'apprentissage supervisé tente plutôt de
-découvrir une fonction de classification, qui associe une série de features
-à une catégorie particulière (dont le nombre est fini et connu d'avance).
-
-- Régression logistique (ex. nombre d'heures étudiées, nombre de cours -> étudiant a gradué ou non)
+- Régression logistique (ex. à partir du nombre d'heures étudiées et du nombre de cours, prédire si un étudiant a gradué ou non)
 - k-NN
 - Arbres de décision
 - Naive Bayes
-
+- Réseau de neurones
 *** Apprentissage non-supervisé
-
-L'apprentissage non-supervisé fonctionne à partir de données pour
-lesquelles la "bonne réponse" n'est pas fournie. Les algorithmes de
-cette famille doivent donc découvrir la structure inhérente aux
-données, de manière autonome, tout en étant guidé possible par des
-hypothèses et ses "biais inductifs".
-
+Nous avons vu qu'une caractéristique essentielle de l'apprentissage
+supervisé est que la "bonne réponse" (qu'il s'agisse du prix réel
+d'une maison, ou la variable binaire oui/non correspondant au fait
+qu'un étudiant ait échoué ou non) est fournie avec les données
+d'entrainement. Un algorithme d'apprentissage supervisé (nous avons vu
+qu'il y en avait plusieurs) utilise cette "bonne réponse" comme une
+cible cruciale qu'il doit s'efforcer d'atteindre, de modéliser donc.
+En contraste, un algorithme non-supervisé n'a pas cette "bonne
+réponse", il n'a que des données non-étiquettées. Les algorithmes de
+cette famille ont donc une tâche entièrement différente que celle de
+l'apprentissage supervisé. Il doivent découvrir la structure inhérente
+aux données, de manière autonome, tout en étant guidé possible par des
+hypothèses. Par exemple, si les données sont des mesures décrivant un
+ensemble de fleurs de différentes espèces, il est possible que je
+sache à priori combien d'espèces l'ensemble d'entrainement contient.
+Dans ce cas, supposons que je sache qu'il y a trois espèces, alors
+l'algorithme n'aura qu'à découvrir ces trois groupes, et associer
+chaque exemple à un groupe en particulier. Il pourrait être également
+possible que le nombre d'espèces soit à priori inconnu, ce qui rendrait
+la tâche de l'algorithme de classification encore plus difficile.
 **** Partitionnement (clustering)
-
 Avec un algorithme de partitionnement, on peut découvrir des
 "agrégats", ou des groupes naturels dans les données.
 
 - k-Means
 - DBScan
 - Hierarchical clustering
-
 **** Réduction de la dimensionnalité
-
 En tentant de réduire la dimensionnalité des données, on peut
 découvrir sa structure inhérente, ce qui est souvent utile en
 visualisation (par exemple, une donnée exprimée en très haute
-dimension peut être plus facile à comprendre en 2d ou 3d).
+dimension peut être plus facile à comprendre ou visualiser en 2d ou
+3d).
 
 - PCA
-
 *** Apprentissage par renforcement (RL)
-
-L'apprentissage par renforcement (APR) est un paradigme différent des
-deux précédents. Si les apprentissages supervisé et non-supervisé
-pourraient être qualifiés de perceptifs (quelle est la nature de ce
-que je perçois?), l'apprentissage par renforcement pourrait être
-compris en tant que modélisation behaviorale (quelle action devrait
-être posée dans ce contexte particulier). L'APR est souvent utilisé
-dans les jeux et la robotique.
-
+L'apprentissage par renforcement (APR) est un autre paradigme
+d'apprentissage machine, très différent des deux précédents. On peut
+généraliser les apprentissages supervisé et non-supervisé en
+considérant qu'ils sont une forme de "reconnaissance de motifs" (en
+anglais "pattern recognition"). Les mécanismes de ce genre sont
+souvent associés aux fonctions cognitives de la perception, chez les
+humains. Par exemple, mes yeux perçoivent une information visuelle
+qu'on m'a appris à classifier en tant que "balle", alors quand je vois
+une balle, la classification appropriée est effectuée par mon esprit
+(exemple d'apprentissage supervisé). D'une manière apparentée mais un
+peu différente, il se peut que mes yeux détectent, lors d'une
+promenade en forêt, une forme ou des couleurs particulières, que je ne
+parviens pas à identifier, mais qui vont tout de même attirer mon
+attention (exemple d'apprentissage non-supervisé). En contraste de
+cette reconnaissance de motifs, l'apprentissage par renforcement est
+plutôt une modélisation du comportement, plutôt que de la perception
+(quelle action devrait être posée dans ce contexte particulier). L'APR
+est souvent utilisé dans les jeux et la robotique.
 ** Réseaux de neurones
-
 Les réseaux de neurones sont un algorithme d'apprentissage
 classiquement supervisé (mais cela va au-delà) extrêmement puissant et
 versatile, qui est l'élément clé à la base des révolutions de
@@ -404,19 +418,15 @@ exemple le prompt de ChatGPT) et les données de sortie (sa réponse).
 Le nombre de couches internes fait en sorte que ces réseaux sont
 qualifiés de "profonds", ce qui mène à l'apprentissage profond (deep
 learning).
-
 ** Les applications de l'AM
-
 - Modélisation
 - Tests médicaux
 - Jeux
 - Chatbot
 - Etc.
-
 ** Concepts
-*** Données
-
-*** Représentation
+- Données: bla bla
+- Représentation: bla bla
 
 *** Paramètres
 
@@ -431,9 +441,3 @@ learning).
 *** Implémentation
 
 *** Ingénierie des caractéristiques (feature engineering)
-
-Quelles sont les composantes d'un NN?
-- Noeuds
-- Poids
-- Fonction d'erreur
-- Optimiseur (qui opt la fonction d'erreur)
