@@ -2,6 +2,7 @@
 #+OPTIONS: title:nil toc:nil
 
 * INF 1901 - Module 2 - Apprentissage machine
+** Quels sont les objectifs de ce module?
 
 ** Qu'est-ce que l'apprentissage machine?
 
@@ -50,6 +51,87 @@ généraliser à n'importe quelle image (par contre, la question se pose
 vache!). Une bonne capacité de généralisation est le but fondamental
 de l'AM et de l'IA en général, et est reliée à ce qu'on entend par
 intelligence, scientifiquement parlant.
+
+** L'apprentissage machine dans un vrai scénario industriel
+
+*** Situation
+
+Imaginez une compagnie où il y a une chaine de montage où on assemble
+des téléviseurs.
+
+*** Le problème 
+
+Supposons que dans un endroit particulièrement délicat de la chaine de
+montage, un problème survienne parfois, que l'on aimerait détecter le
+plus rapidement possible.
+
+*** Une solution possible
+
+On pourrait imaginer placer une caméra vidéo dont le but serait de
+visionner le flot des appareils en cours d'assemblage, pour tenter de
+détecter les problèmes. Pour ce faire, la caméra pourrait transmettre,
+à intervalles réguliers, les pixels de ce qu'elle capte, en tant que
+donnée à un modèle d'apprentissage machine qui roulerait (en tant que
+programme) sur un serveur, pas très éloigné. Ce modèle convertirait
+les pixels de la caméra en tant que données numériques (les entrées,
+"inputs"), et effectuerait un calcul complexe sur ces valeurs, en vue
+nde produire une valeur de sortie simple ("outputs") : "oui il y a un
+problème avec cette image", ou "non il n'y a pas de problème avec
+cette image". Sur la base de cette valeur de sortir, on pourrait agir
+et envoyer un technicien, en cas de besoin.
+
+*** Quelle sera la nature de ce modèle?
+
+Ce modèle sera essentiellement un modèle au sens statistique classique
+du terme : une série de paramètres déterminant une fonction
+particulière. Par analogie avec une fonction classique qu'on apprend
+au secondaire :
+
+#+BEGIN_EXPORT latex
+\[
+f(x) = mx + b
+\]
+#+END_EXPORT
+
+$m$ et $b$ (les valeurs particulières qu'on leur donne) sont les paramètres qui déterminent cette fonction particulière. Dans un modèle d'apprentissage machine, il y a beaucoup plus de paramètres, mais c'est essentiellement la même idée. Les paramètres d'un modèle sont donc essentiellement une série de nombres, rien de plus. Notre but est maintenant de trouver une manière de calculer la valeur exacte de ces paramètres pour notre modèle. Pour commencer, notre modèle a des valeurs aléatoires pour ses paramètres.
+
+*** Qu'est-ce qu'un ensemble de données d'entrainement?
+
+Nous avons tout d'abord besoin d'un ensemble de données
+d'entrainement, qui est constitué d'une série d'images, accompagnées
+chacune d'une étiquette "oui c'est un problème", ou "non ce n'est pas
+un problème". Évidemment dans la réalité les problèmes sont plus
+rares, mais il faudrait idéalement que cet ensemble d'entrainement (de
+disons 1000 images) soit constitué à 50% de cas problématiques, et 50%
+de cas non-problématiques.
+
+*** Qu'est-ce que la fonction d'erreur?
+
+La fonction d'erreur détermine l'erreur moyenne qu'une version donnée du modèle (avec des valeurs précises pour les paramètres) entraine. S'il y a 1000 images, dont 500 images "oui", et 500 images "non, et que le modèle répond "non" pour les 1000, alors il a fait 500 erreurs.
+
+*** Qu'est-ce que l'entrainement (ou l'optimisation de la fonction d'erreur)?
+
+La partie cruciale est ici : on aimerait une procédure qui va changer la valeur des paramètres (qui au départ sont des valeurs aléatoires) de manière à réduire l'erreur, idéalement à zéro. Parfois il est possible
+de trouver les bonnes valeurs pour les paramètres "d'un coup", mais plus
+souvent, il est plus pratique de le faire progressivement. La valeur de
+la fonction d'erreur va donc diminuer graduellement, la fonction va donc
+être "optimisée".
+
+*** Qu'est-ce que l'inférence (ou l'utilisation du modèle dans la réalité)?
+
+Une fois les bonnes valeurs pour les paramètres trouvées, la tâche est
+accomplie, le modèle est prêt à être utilisé dans la réalité. On
+conserve donc précieusement les valeurs de ces paramètres, et on les
+place dans une version "officielle" du modèle, qui devra traiter des
+données provenant de la chaine de montage. Ces données sont
+"nouvelles", dans le sens qu'elles n'ont pas servies à l'entrainement
+du modèle (elles ne feront nécessairement pas partie de l'ensemble des
+1000 images d'entrainement). Mais notre espoir est que le modèle aura
+appris à "généraliser", à partir des exemples qu'il aura vus pendant
+son entrainement. Si jamais le modèle ou la couleur des téléviseurs
+changent, il est possible que notre modèle se comporte moins bien, et
+fasse donc plus d'erreurs. Il sera donc peut-être nécessaire de
+procéder à son réentrainement.
 
 ** En quoi l'AM diffère de la programmation traditionnelle?
 
