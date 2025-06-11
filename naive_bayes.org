@@ -1,0 +1,102 @@
+#+LANGUAGE: fr
+#+OPTIONS: title:nil toc:nil
+#+LaTeX_HEADER: \usepackage{caption}
+#+LaTeX_HEADER: \captionsetup[figure]{labelformat=empty}
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \setcounter{section}{1}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \lstset{basicstyle=\ttfamily,columns=fullflexible}
+
+* Classification naïve bayésienne pour détecter les pourriels
+
+La classification naïve bayésienne est un algorithme d'apprentissage
+supervisé qui fonctionne avec les probabilités. Un problème
+particulier qui peut être traité avec cet algorithme est la
+classification de courriels. On peut tenter d'estimer la probabilité
+qu'un courriel soit en fait un pourriel en prenant en compte les mots
+particuliers qu'il contient, l'idée étant que certains mots auront
+plus souvent tendance à se retrouver plus souvent dans des pourriels.
+
+La probabilité qui nous intéresse est en fait une probabilité
+conditionnelle, celle du fait qu'un courriel particulier soit ou non
+un pourriel, étant donné les mots particuliers qui le composent. Un
+courriel sera jugé un pourriel si :
+
+#+BEGIN_EXPORT latex
+\[
+\text{Prob(pourriel | mots)} > \text{Prob(ok | mots)}
+\]
+#+END_EXPORT
+
+Voyons comment on peut calculer ces probabilités à partir d'exemples.
+
+Copiez tout d'abord ces données dans les colonnes A et B d'un fichier Excel:
+
+#+ATTR_LATEX: :align |l|l| :booktabs nil :rules all
+|--------------------------------------------------------|
+| Bonjour, on se voit demain?               | ok         |
+| Voici le compte-rendu de la réunion       | ok         |
+| N'oublie pas d'apporter le rapport        | ok         |
+| Invitation à dîner ce week-end            | ok         |
+| Merci pour ta réponse rapide              | ok         |
+| Le document est attaché à ce courriel     | ok         |
+| C’est noté, à bientôt!                    | ok         |
+| As-tu vu les dernières nouvelles?         | ok         |
+| Gagnez un iPhone gratuit maintenant!      | pourriel   |
+| Cliquez ici pour réclamer votre prix $$$  | pourriel   |
+|--------------------------------------------------------|
+
+Ensuite définissez la colonne C avec cette formule :
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=UNIQUE(TRANSPOSE(TEXTSPLIT(TEXTJOIN(" ",TRUE,LOWER(A1:A10))," ")))
+\end{lstlisting}
+#+END_EXPORT
+
+La colonne C devrait maintenant contenir le vocabulaire des courriels :
+
+#+ATTR_LATEX: :width 1.0\textwidth :float nil
+[[file:./images/excel_col_c_voc.png]]
+
+La colonne D devrait correspondre au nombre de fois où les mots de la colonne C apparaissent dans les courriels de la catégorie "ok" :
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=SUMPRODUCT((B$1:B$10="ok") *
+       ISNUMBER(SEARCH(" " & C1 & " ", " " & LOWER(A$1:A$10) & " ")))
+\end{lstlisting}
+#+END_EXPORT
+
+et de manière similaire pour la colonne E et les mots de la catégorie "pourriel":
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=SUMPRODUCT((B$1:B$10="pourriel") *
+       ISNUMBER(SEARCH(" " & C1 & " ", " " & LOWER(A$1:A$10) & " ")))
+\end{lstlisting}
+#+END_EXPORT
+
+Notez que les colonnes D et E doivent avoir le même nombre d'éléments
+que la colonne C (il faut donc utiliser la fonction de remplissage
+automatique, pour laquelle le plus simple est de soit glisser (drag)
+la première cellule vers le bas, ou encore de double-cliquer sur le
+petit "+" qui apparait en bas à droite de la première cellule, une
+fois la formule exécutée).
+
+La colonne F doit ensuite être définie comme étant :
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=(D1 + 1) / (SUM(D:D) + COUNTA(C:C))
+\end{lstlisting}
+#+END_EXPORT
+
+et la colonne G comme étant :
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=(E1 + 1) / (SUM(E:E) + COUNTA(C:C))
+\end{lstlisting}
+#+END_EXPORT
