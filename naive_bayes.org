@@ -16,7 +16,7 @@ particulier qui peut être traité avec cet algorithme est la
 classification de courriels. On peut tenter d'estimer la probabilité
 qu'un courriel soit en fait un pourriel en prenant en compte les mots
 particuliers qu'il contient, l'idée étant que certains mots auront
-plus souvent tendance à se retrouver plus souvent dans des pourriels.
+tendance à être plus souvent utilisés dans des pourriels.
 
 La probabilité qui nous intéresse est en fait une probabilité
 conditionnelle, celle du fait qu'un courriel particulier soit ou non
@@ -29,9 +29,11 @@ courriel sera jugé un pourriel si :
 \]
 #+END_EXPORT
 
-Voyons comment on peut calculer ces probabilités à partir d'exemples.
+** Entraînement du modèle
 
-Copiez tout d'abord ces données dans les colonnes A et B d'un fichier Excel:
+Voyons comment on peut calculer ces probabilités en entraînant un modèle sur une série de courriels particuliers.
+
+Copiez tout d'abord ces données dans les colonnes A et B d'un feuillet Excel:
 
 #+ATTR_LATEX: :align |l|l| :booktabs nil :rules all
 |--------------------------------------------------------|
@@ -47,7 +49,15 @@ Copiez tout d'abord ces données dans les colonnes A et B d'un fichier Excel:
 | Cliquez ici pour réclamer votre prix $$$  | pourriel   |
 |--------------------------------------------------------|
 
-Ensuite définissez la colonne C avec cette formule :
+Calculons tout d'abord dans la colonne C la probabilité à priori qu'un courriel quelconque soit "ok" ou non (sans prendre en considérations les mots donc, pour le moment):
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=COUNTIF(B1:B10, UNIQUE(B1:B10)) / COUNTA(B1:B10)
+\end{lstlisting}
+#+END_EXPORT
+
+Ces probabilités à priori nous serviront plus loin. Définissez ensuite la colonne D avec cette formule :
 
 #+BEGIN_EXPORT latex
 \begin{lstlisting}
@@ -55,48 +65,106 @@ Ensuite définissez la colonne C avec cette formule :
 \end{lstlisting}
 #+END_EXPORT
 
-La colonne C devrait maintenant contenir le vocabulaire des courriels :
+La colonne D devrait maintenant contenir le vocabulaire des courriels:
 
 #+ATTR_LATEX: :width 1.0\textwidth :float nil
 [[file:./images/excel_col_c_voc.png]]
 
-La colonne D devrait correspondre au nombre de fois où les mots de la colonne C apparaissent dans les courriels de la catégorie "ok" :
+La colonne E devrait correspondre au nombre de fois où les mots de la colonne D apparaissent dans les courriels de la catégorie "ok" :
 
 #+BEGIN_EXPORT latex
 \begin{lstlisting}
 =SUMPRODUCT((B$1:B$10="ok") *
-       ISNUMBER(SEARCH(" " & C1 & " ", " " & LOWER(A$1:A$10) & " ")))
+       ISNUMBER(SEARCH(" " & D1 & " ", " " & LOWER(A$1:A$10) & " ")))
 \end{lstlisting}
 #+END_EXPORT
 
-et de manière similaire pour la colonne E et les mots de la catégorie "pourriel":
+et de manière similaire pour la colonne F et les mots de la catégorie "pourriel":
 
 #+BEGIN_EXPORT latex
 \begin{lstlisting}
 =SUMPRODUCT((B$1:B$10="pourriel") *
-       ISNUMBER(SEARCH(" " & C1 & " ", " " & LOWER(A$1:A$10) & " ")))
+       ISNUMBER(SEARCH(" " & D1 & " ", " " & LOWER(A$1:A$10) & " ")))
 \end{lstlisting}
 #+END_EXPORT
 
-Notez que les colonnes D et E doivent avoir le même nombre d'éléments
-que la colonne C (il faut donc utiliser la fonction de remplissage
+Notez que les colonnes E et F doivent avoir le même nombre d'éléments
+que la colonne D (il faut donc utiliser la fonction de remplissage
 automatique, pour laquelle le plus simple est de soit glisser (drag)
 la première cellule vers le bas, ou encore de double-cliquer sur le
-petit "+" qui apparait en bas à droite de la première cellule, une
-fois la formule exécutée).
+petit "+" noir qui apparait en bas à droite de la première cellule,
+une fois la formule exécutée).
 
-La colonne F doit ensuite être définie comme étant :
+À partir de ces fréquences de mots pour chaque classe ("ok" ou "pourriel"), on peut maintenant calculer la probabilité conditionnelle de chaque mot du vocabulaire, étant donné la classe. Donc la colonne G correspond à la probabilité des mots étant donné un courriel "ok":
 
 #+BEGIN_EXPORT latex
 \begin{lstlisting}
-=(D1 + 1) / (SUM(D:D) + COUNTA(C:C))
+=(E1 + 1) / (SUM(E:E) + COUNTA(D:D))
 \end{lstlisting}
 #+END_EXPORT
 
-et la colonne G comme étant :
+et de manière similaire la colonne H est la probabilité des mots quand on sait qu'on a affaire à un pourriel:
 
 #+BEGIN_EXPORT latex
 \begin{lstlisting}
-=(E1 + 1) / (SUM(E:E) + COUNTA(C:C))
+=(F1 + 1) / (SUM(F:F) + COUNTA(D:D))
+\end{lstlisting}
+#+END_EXPORT
+
+** Utilisation du modèle (inférence)
+
+Nous allons maintenant utiliser le modèle pour déterminer si un nouveau courriel est un pourriel ou non. Dans la colonne I entrez le courriel à tester:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+Salut voici la facture de votre iphone
+\end{lstlisting}
+#+END_EXPORT
+
+Faites l'extraction des mots du courriel dans la colonne J:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=TRANSPOSE(TEXTSPLIT(LOWER(I1), " "))
+\end{lstlisting}
+#+END_EXPORT
+
+Nous avons maintenant besoin de la probabilité des mots de ce courriel de test dans l'hypothèse où ça serait un courriel "ok", donc pour la colonne K:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=IFERROR(XLOOKUP(FILTER(J:J, J:J<>""), D:D, G:G), 1e-10)
+\end{lstlisting}
+#+END_EXPORT
+
+et de manière similaire pour la probabilité des mots du courriel dans l'hypothèse où il s'agit d'un pourriel, donc pour la colonne L:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=IFERROR(XLOOKUP(FILTER(J:J, J:J<>""), D:D, H:H), 1e-10)
+\end{lstlisting}
+#+END_EXPORT
+
+La probabilité que le courriel soit ok est la colonne M:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=PRODUCT(K:K) * C1
+\end{lstlisting}
+#+END_EXPORT
+
+Et la probabilité qu'il soit un pourriel est la colonne N:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=PRODUCT(L:L) * C2
+\end{lstlisting}
+#+END_EXPORT
+
+Notre classification finale sera dans la colonne O:
+
+#+BEGIN_EXPORT latex
+\begin{lstlisting}
+=IF(M1 > N1, "ok", "pourriel")
 \end{lstlisting}
 #+END_EXPORT
