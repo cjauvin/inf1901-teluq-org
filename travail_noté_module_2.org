@@ -1,0 +1,272 @@
+#+LANGUAGE: fr
+#+OPTIONS: title:nil toc:nil
+#+LaTeX_HEADER: \usepackage{caption}
+#+LaTeX_HEADER: \captionsetup[figure]{labelformat=empty}
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \setcounter{section}{1}
+
+* Classification naïve bayésienne pour détecter les pourriels
+
+La classification naïve bayésienne est un algorithme d'apprentissage
+supervisé qui fonctionne avec les probabilités. Un problème
+classique qui peut être traité avec cet algorithme est la
+classification de courriels. On peut tenter d'estimer la probabilité
+qu'un courriel soit en fait un pourriel en prenant en compte les mots
+particuliers qu'il contient, l'idée étant que certains mots auront
+tendance à être plus souvent utilisés dans des pourriels.
+
+La probabilité qui nous intéresse est en fait une probabilité
+conditionnelle, celle du fait qu'un courriel particulier soit ou non
+un pourriel, étant donné les mots particuliers qui le composent. Un
+courriel sera classifié en tant que pourriel si :
+#+BEGIN_EXPORT latex
+\[
+\text{Prob(oui c'est un pourriel | mots)} > \text{Prob(non ce n'est pas un | mots)}
+\]
+#+END_EXPORT
+
+** Entraînement du modèle
+
+Voyons comment il est possible de calculer ces probabilités en
+entraînant un modèle de classification sur une série de courriels
+particuliers.
+
+Copiez tout d'abord ces 10 courriels dans la colonne A d'un feuillet
+Excel, un courriel par rangée :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+voici le colis est arrivé
+bonjour voici le lien
+offre spéciale colis gratuit
+merci pour votre colis
+colis livré demain matin
+voici votre carte gratuite
+réunion demain à midi
+voici le code pour carte
+livraison spéciale pour vous
+merci encore pour votre carte
+\end{verbatim}
+#+END_EXPORT
+
+Pour avoir un aperçu de la tâche d'étiquettage des données (qui dans
+un scénario réel peut s'avérer très coûteuse et laborieuse), vous êtes
+invités à tenter tout d'abord de catégoriser les courriels dans la
+colonne B, en utilisant la valeur "oui" si vous considérez qu'il
+s'agit d'un pourriel, ou "non" (ce n'est pas un pourriel) sinon.
+
+#+LATEX: \newpage
+
+Si vous n'avez pas envie de vous soumettre à cet exercice à ce stade,
+vous pouvez toujours copier ces valeurs (dans la colonne B) :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+non
+non
+oui
+non
+non
+oui
+non
+non
+oui
+non
+\end{verbatim}
+#+END_EXPORT
+
+À ce stade, votre feuillet Excel devrait ressembler à ceci :
+
+#+ATTR_LATEX: :width 1.0\textwidth :float nil
+[[file:./images/excel_cols_a_et_b.png]]
+
+Calculons tout d'abord dans la colonne C la probabilité à priori qu'un
+courriel quelconque soit un pourriel ou non (sans prendre en
+considérations les mots donc, pour le moment) :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=NB.SI(B1:B10; UNIQUE(B1:B10)) / NBVAL(B1:B10)
+\end{verbatim}
+#+END_EXPORT
+
+Ces probabilités à priori nous serviront plus loin. Définissez ensuite
+la colonne D avec cette formule :
+
+#+BEGIN_EXPORT latex
+{\small\begin{verbatim}
+=UNIQUE(TRANSPOSE(FRACTIONNER.TEXTE(JOINDRE.TEXTE(" "; VRAI; A:A); " ")))
+\end{verbatim}}
+#+END_EXPORT
+
+La colonne D devrait maintenant contenir le vocabulaire des courriels :
+
+#+ATTR_LATEX: :width 1.0\textwidth :float nil
+[[file:./images/excel_col_d_voc.png]]
+
+La colonne E devrait ensuite correspondre au nombre de fois où les
+mots de la colonne D apparaissent dans les courriels valides (qui donc
+"non", ne sont pas des pourriels) :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=SOMMEPROD((B$1:B$10="non") * ESTNUM(CHERCHE(D1; A$1:A$10)))
+\end{verbatim}
+#+END_EXPORT
+
+et de manière similaire pour la colonne F et la fréquence des mots qui
+apparaissent dans les courriels qui "oui", sont des pourriels :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=SOMMEPROD((B$1:B$10="oui") * ESTNUM(CHERCHE(D1; A$1:A$10)))
+\end{verbatim}
+#+END_EXPORT
+
+Notez que les colonnes E et F doivent avoir le même nombre d'éléments
+que la colonne D (il faut donc utiliser la fonction de remplissage
+automatique, pour laquelle le plus simple est de soit glisser (drag)
+la première cellule vers le bas, une fois qu'elle a été calculée, ou
+encore de double-cliquer sur le petit "+" noir qui apparait en bas à
+droite de la première cellule).
+
+#+ATTR_LATEX: :width 0.9\textwidth :float nil
+[[file:./images/excel_col_e_drag.png]]
+
+#+ATTR_LATEX: :width 0.9\textwidth :float nil
+[[file:./images/excel_cols_e_et_f.png]]
+
+À partir de ces fréquences de mots pour chaque classe ("oui" ou
+"non"), on peut maintenant calculer la probabilité conditionnelle de
+chaque mot du vocabulaire, étant donné le fait qu'un courriel soit
+"oui" ou "non" un pourriel. Donc la colonne G correspond à la
+probabilité des mots étant donné que "non" il ne s'agit pas d'un pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=(E1 + 1) / (SOMME(E:E) + NBVAL(D:D))
+\end{verbatim}
+#+END_EXPORT
+
+et de manière similaire la colonne H est la probabilité des mots quand
+on sait que "oui" il s'agit d'un pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=(F1 + 1) / (SOMME(F:F) + NBVAL(D:D))
+\end{verbatim}
+#+END_EXPORT
+
+Encore une fois les colonnes G et H doivent avoir la même taille que
+celle du vocabulaire (colonne D), il faut donc s'assurer d'utiliser le
+mécanisme du remplissage automatique décrit précédemment.
+
+#+ATTR_LATEX: :width 1.0\textwidth :float nil
+[[file:./images/excel_cols_g_et_h.png]]
+
+Notre modèle est maintenant entièrement entraîné, et il est donc prêt
+pour son utilisation!
+
+** Utilisation du modèle (inférence)
+
+Nous allons maintenant utiliser le modèle pour déterminer si un
+nouveau courriel (qui n'a pas servi à l'entraînement) est un pourriel
+ou non. Dans la colonne I entrez un courriel à tester :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+voici votre carte spéciale
+\end{verbatim}
+#+END_EXPORT
+
+Faites l'extraction des mots du courriel dans la colonne J :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=TRANSPOSE(FRACTIONNER.TEXTE(MINUSCULE(I1); " "))
+\end{verbatim}
+#+END_EXPORT
+
+Nous avons maintenant besoin, dans la colonne K, de la probabilité des
+mots de ce courriel de test dans l'hypothèse où "non", ça ne serait
+pas un pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=SIERREUR(RECHERCHEX(FILTRE(J:J; J:J<>""); D:D; G:G); 1E-10)
+\end{verbatim}
+#+END_EXPORT
+
+et de manière similaire pour la colonne L, avec la probabilité des
+mots du courriel dans l'hypothèse où "oui" il s'agit d'un pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=SIERREUR(RECHERCHEX(FILTRE(J:J; J:J<>""); D:D; H:H); 1E-10)
+\end{verbatim}
+#+END_EXPORT
+
+Calculons dans la colonne M la probabilité que "non" le courriel n'est
+pas un pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=PRODUIT(K:K) * C1
+\end{verbatim}
+#+END_EXPORT
+
+Et dans la colonne N la probabilité que "oui" le courriel est un
+pourriel :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=PRODUIT(L:L) * C2
+\end{verbatim}
+#+END_EXPORT
+
+Notre classification finale sera dans la colonne O :
+
+#+BEGIN_EXPORT latex
+\begin{verbatim}
+=SI(M1 > N1; "non"; "oui")
+\end{verbatim}
+#+END_EXPORT
+
+#+ATTR_LATEX: :width 1.0\textwidth :float nil
+[[file:./images/excel_toutes_les_cols.png]]
+
+#+LATEX: \newpage
+
+** Questions
+
+1. Que se passe-t-il si vous changez le mot "spéciale" par le mot
+   "livrée" dans le courriel de test de la cellule I1?
+
+2. Expliquez en vos mots ce qui se passe avec les probabilités
+   conditionnelles du mot "livrée", aux cellules K4 et L4. Pourquoi
+   a-t-on besoin de faire en sorte que ça fonctionne ainsi?
+
+3. Est-ce que ce modèle est paramétrique ou non? Expliquez pourquoi.
+
+4. S'il s'agit d'un modèle paramétrique, quels sont les paramètres du
+   modèle exactement?
+
+5. Quelle est la signification des nombres dans les cellules G11 et
+   H11, comment peut-on les interpréter?
+
+6. Quelles sont les différentes probabilités conditionnelles de ce
+   modèles?
+
+7. Quelles sont les probabilités non-conditionnelles (à priori)?
+
+8. Est-ce qu'il serait possible d'utiliser seulement ces probabilités
+   non-conditionnelles pour faire un modèle? Quelles conséquences ça
+   entrainerait?
+
+9. De quelle manière peut-ton dire que ce modèle généralise?
+
+10. Est-ce que l'ordre des mots joue un rôle dans les décisions de ce
+    modèle? Expliquez pourquoi c'est ainsi
+
+11. Si l'ordre des mots ne joue pas de rôle, comment pourrait-on
+    modifier le modèle de manière à ce qu'il le soit?
