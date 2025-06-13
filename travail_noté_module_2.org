@@ -270,3 +270,8 @@ Notre classification finale sera dans la colonne O :
 
 11. Si l'ordre des mots ne joue pas de rôle, comment pourrait-on
     modifier le modèle de manière à ce qu'il le soit?
+
+12. Est-ce que certains mots aident particulièrement le modèle? Si oui
+    pourquoi?
+
+13. Est-ce que certains mots sont moins utiles? Si oui pourquoi?
