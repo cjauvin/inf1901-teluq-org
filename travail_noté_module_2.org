@@ -183,7 +183,7 @@ Faites l'extraction des mots du courriel dans la colonne J :
 
 #+BEGIN_EXPORT latex
 \begin{verbatim}
-=TRANSPOSE(FRACTIONNER.TEXTE(MINUSCULE(I1); " "))
+=TRANSPOSE(FRACTIONNER.TEXTE(I1; " "))
 \end{verbatim}
 #+END_EXPORT
 
@@ -269,7 +269,7 @@ Notre classification finale sera dans la colonne O :
     modèle? Expliquez pourquoi c'est ainsi
 
 11. Si l'ordre des mots ne joue pas de rôle, comment pourrait-on
-    modifier le modèle de manière à ce qu'il le soit?
+    modifier le modèle de manière à ce qu'il en joue un?
 
 12. Est-ce que certains mots aident particulièrement le modèle? Si oui
     pourquoi?
