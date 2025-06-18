@@ -50,7 +50,7 @@ courants de l'IA
 - Décrire les différentes composantes d'un réseau de neurones
 - Expliquer en quoi le réseau de neurones est une métaphore du fonctionnement d'un cerveau (connexionnisme)
 - Expliquer l'idée de base de l'apprentissage profond : les couches successives d'un réseau de neurones encodent une hiérarchie d'abstractions
-- Expliquer le rôle des GPUs dans l'essor de l'apprentissage profond
+- Expliquer le rôle des GPUs et des frameworks de différention automatique (Tensorflow, PyTorch, etc) dans l'essor de l'apprentissage profond
 - Répertorier les différents types de topologie (réseaux à convolution, transformers, réseaux récurrents, etc), et expliquer leurs avantages et inconvénients
 - Expliquer le succès relatif des réseaux de neurones, par rapport aux autres algorithmes d'apprentissage
 
