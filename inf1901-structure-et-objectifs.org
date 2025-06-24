@@ -43,7 +43,7 @@ courants de l'IA
 - Décrire comment on évalue la performance d’un modèle d’apprentissage machine
 - Décrire l'importance de la capacité de généralisation pour un algorithme d'apprenssage
 
-*Travail noté* : construction guidée d'un algorithme de classification naive bayésienne pour les courriels dans Google Sheets
+*Travail noté* : construction guidée d'un algorithme de classification naive bayésienne pour les courriels dans Google Sheets, suivi de questions interprétatives
 
 ** Objectifs du module 3
 

@@ -1,0 +1,57 @@
+#+LANGUAGE: fr
+#+OPTIONS: title:nil toc:nil
+
+* INF 1901 - Module 3 - Apprentissage profond
+
+** Qu'est-ce que l'apprentissage profond?
+
+L'apprentissage profond (AP) concerne principalement les réseaux de
+neurones. Comme nous l'avons vu dans le Module 2, un réseau de
+neurones est un algorithme classique de l'apprentissage machine. Il
+est est constitué d'une série de couches d'unités (correspondant plus
+ou moins à des neurones) reliées entre elles par des matrices de
+paramètres (correspondant plus ou moins à des synapses), qui sont
+essentiellement des tableaux de nombres réels.
+
+Une difficulté fondamentale avec les réseaux de neurones est que la
+méthode de calcul pour trouver la "bonne valeur" des paramètres (celle
+qui fera en sorte de minimiser la moyenne des erreurs que le réseau
+dans sa totalité engendre) est très sensible à la quantité de couches
+qu'il contient, donc à sa profondeur. Plus ils ont de couches, plus
+ils deviennent difficiles à entrainer.
+
+La révolution de l'apprentissage profond a permis de diminuer cette
+sensibilité (à l'aide de différentes techniques), de manière à rendre
+concrètement possible l'entrainement de réseaux de neurones à plusieurs
+couches, donc profonds.
+
+Ceci a également entrainé une importante conséquence au niveau de la
+représentation des données que le réseau de neurones utilise. Alors
+qu'un réseau de neurones classique effectue peu de transformations des
+données initiales, étant donné le fait qu'il a peu de couches internes
+pour le faire, un réseau de neurones profond permet une série de
+transformations successives, desquelles émergent des représentations
+de plus en plus abstraites et hiercharchiques des données. Ceci a donc
+fait en sorte de diminuer le besoin pour une ingénierie manuelle des
+"features", en permettant au réseau de neurones de dériver lui-même sa
+propre représentation interne, dont la nature est ainsi plus adaptée à
+ses besoins particuliers. La contrepartie de ceci est le fait que les
+réseaux de neurones profonds ont tendance à être plus difficiles à
+comprendre et interpréter, étant donné leur forte dépendance à cette
+représentation particulière au problème.
+
+** En quoi l'apprentissage profond diffère de l'apprentissage machine?
+
+** Concepts
+
+*** Caractéristiques (features)
+
+*** Couches cachées
+
+*** Neurone
+
+*** Fonction objective (d'erreur)
+
+*** Backpropagation
+
+
