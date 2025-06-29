@@ -187,7 +187,7 @@ bigrammes) pour ne retenir que les bigrammes uniques :
 
 #+BEGIN_EXPORT latex
 \begin{verbatim}
-=SORT(UNIQUE(FILTER(C1:C, C1:C<>"")))
+=SORT(UNIQUE(FILTER(C:C, C:C<>"")))
 \end{verbatim}
 #+END_EXPORT
 
@@ -196,7 +196,7 @@ correspondantes :
 
 #+BEGIN_EXPORT latex
 \begin{verbatim}
-=INDEX(E$1:E, MATCH(F1, C$1:C, 0))
+=INDEX(E:E, MATCH(F1, C:C, 0))
 \end{verbatim}
 #+END_EXPORT
 
@@ -221,12 +221,12 @@ Colonne I :
 #+BEGIN_EXPORT latex
 \begin{verbatim}
 =LET(
-  filter_mask, ARRAYFORMULA(IFERROR(INDEX(SPLIT($F$1:$F$100, " "), 0, 1), "") = H1),
-  probs, FILTER($G$1:$G$100, filter_mask),
-  bigrams, FILTER($F$1:$F$100, filter_mask),
-  cumul, SCAN(0, probs, LAMBDA(a, b, a + b)),
-  idx, MATCH(RAND(), {0; cumul}, 1),
-  INDEX(SPLIT(INDEX(bigrams, idx), " "), 1, 2)
+  next_word_mask, ARRAYFORMULA($G:$G = J1),
+  next_words, FILTER($H:$H, next_word_mask),
+  probs, FILTER($I:$I, next_word_mask),
+  probs_cumul, SCAN(0, probs, LAMBDA(a, b, a + b)),
+  sampled_word_idx, MATCH(RAND(), {0; probs_cumul}, 1),
+  INDEX(next_words, sampled_word_idx)
 )
 \end{verbatim}
 #+END_EXPORT
