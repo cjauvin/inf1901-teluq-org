@@ -1,5 +1,5 @@
 #+LANGUAGE: fr
-#+OPTIONS: title:nil toc:nil
+#+OPTIONS: title:nil toc:nil num:nil
 #+LaTeX_HEADER: \usepackage{caption}
 #+LaTeX_HEADER: \captionsetup[figure]{labelformat=empty}
 #+LATEX_HEADER: \usepackage{parskip}

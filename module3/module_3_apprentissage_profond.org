@@ -1,7 +1,9 @@
 #+LANGUAGE: fr
-#+OPTIONS: title:nil toc:nil
+#+OPTIONS: title:nil toc:nil num:nil
 
-* INF 1901 - Module 3 - Apprentissage profond
+* INF 1901 - Module 3 - Réseaux de neurones et apprentissage profond
+
+**
 
 ** Qu'est-ce que l'apprentissage profond?
 
@@ -41,7 +43,6 @@ comprendre et interpréter, étant donné leur forte dépendance à cette
 représentation particulière au problème.
 
 ** En quoi l'apprentissage profond diffère de l'apprentissage machine?
-
 ** Concepts
 
 *** Caractéristiques (features)
@@ -53,5 +54,3 @@ représentation particulière au problème.
 *** Fonction objective (d'erreur)
 
 *** Backpropagation
-
-
