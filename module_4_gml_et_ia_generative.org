@@ -1,9 +1,0 @@
-* INF 1901 - Module 4 - Grands modèles de langue et IA générative
-
-** Qu'est-ce qu'un modèle de langue?
-
-** Qu'est-ce qu'un grand modèle de langue?
-
-** Que veut-on dire par IA générative?
-
-** Qu'est-ce qu'un chatbot?
