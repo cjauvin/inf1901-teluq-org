@@ -6,9 +6,9 @@
 #+LATEX_HEADER: \setcounter{section}{1}
 
 * INF 1901 - Module 2 - Apprentissage machine
-** L'apprentissage machine dans un vrai scénario industriel
-Imaginez une compagnie où il y a une chaîne de montage où on assemble
-des téléviseurs.
+** L'apprentissage machine dans un scénario imaginé
+Imaginez une compagnie où il y a une chaîne de montage avec laquelle
+on assemble des téléviseurs.
 
 #+ATTR_LATEX: :width 0.8\textwidth :float nil
 [[file:./images/tv_assembly_line.png]]
@@ -16,8 +16,9 @@ des téléviseurs.
 *** Le problème
 
 Supposons que dans un endroit particulièrement délicat de la chaîne de
-montage, un problème survienne parfois, que l'on aimerait détecter le
-plus rapidement possible.
+montage, un problème avec un appareil d'assemblage particulier
+survienne parfois, que l'on aimerait détecter le plus rapidement
+possible.
 
 *** Une solution possible
 
@@ -31,12 +32,12 @@ qui roulerait (en tant que programme) sur un serveur, pas très
 données numériques (les entrées, "inputs"), et effectuerait un calcul
 complexe sur ces valeurs, en vue de produire une valeur de sortie
 simple ("outputs") : "oui, il y a un problème avec cette image", ou
-"non, il n'y a pas de problème avec cette image". Ou encore, ce qui
-serait équivalent : "ok" ou "problème". Cette valeur est binaire, dans
-le sens qu'elle a seulement deux valeurs possibles (peu importe
-lesquelles, en autant qu'il y en ait seulement deux). Sur la base de
-cette valeur binaire de sortie, on pourrait agir et envoyer un
-technicien, en cas de besoin, pour régler le problème.
+"non, il n'y a pas de problème avec cette image" (ou encore, ce qui
+serait équivalent mais plus simple : "ok" ou "problème"). Cette valeur
+est binaire, dans le sens qu'elle a seulement deux valeurs possibles
+(peu importe lesquelles, en autant qu'il y en ait seulement deux). Sur
+la base de cette valeur binaire de sortie, on pourrait agir et envoyer
+un technicien, en cas de besoin, pour régler le problème.
 
 #+ATTR_LATEX: :width 0.8\textwidth :float nil
 [[file:./images/tv_assembly_line_with_camera.png]]
@@ -76,8 +77,10 @@ donc essentiellement une sérine de nombres, rien de plus. Il est
 important à ce stade de bien comprendre la distinction entre ces deux
 séries de nombres dont nous parlons depuis le début :
 
-- La série de nombres qui constituent les paramètres du modèle (aléatoires pour le moment)
-- La série de nombres qui proviennent des images que nous allons vouloir soumettre au modèle (correspondant à la couleur des pixels)
+- La série de nombres qui constituent les paramètres du modèle
+  (aléatoires pour le moment)
+- La série de nombres qui proviennent des images que nous allons
+  vouloir soumettre au modèle (correspondant à la couleur des pixels)
 
 Nous allons faire en sorte qu'il y ait une interaction entre ces deux
 séries de nombres (en vue de produire une réponse binaire), et cette
@@ -228,17 +231,17 @@ objet mathématique (un modèle avec ses paramètres), son implémentation
 concrète se fait quand même toujours avec un langage de programmation.
 ** En quoi l'AM diffère de l'IA?
 L'intelligence artificielle est le domaine plus vaste, qui englobe
-l'apprentissage machine et l'intelligence artificielle dite symbolique
-(en anglais on utilise parfois le terme GOFAI, "good old fashioned
-artificial intelligence"). Il est important de comprendrre que ces
-deux disciplines sont distinctes et ont des méthodes profondément
-différentes, et l'histoire de leur développement est entièrement
-différente. Dans un certain sens, l'AM est une forme plus spécialisée
-et un peu plus récente d'IA, plus mathématique, moins symbolique, et
-clairement celle qui domine la période actuelle. Les mathématiques qui
-sont le plus souvent associées à l'apprentissage machine sont
-l'algèbre linéaire et les probabilités, qui elles-mêmes entretiennent
-des liens étroits.
+l'apprentissage machine et l'intelligence artificielle classique (plus
+ancienne) et dite symbolique (en anglais on utilise parfois le terme
+GOFAI, "good old fashioned artificial intelligence"). Il est important
+de comprendre que ces deux disciplines sont distinctes et ont des
+méthodes profondément différentes, et l'histoire de leur développement
+est entièrement différente. Dans un certain sens, l'AM est une forme
+plus spécialisée et un peu plus récente d'IA, plus mathématique, moins
+symbolique, et clairement celle qui domine la période actuelle. Les
+mathématiques qui sont le plus souvent associées à l'apprentissage
+machine sont l'algèbre linéaire et les probabilités, qui elles-mêmes
+entretiennent des liens étroits.
 ** En quoi l'AM diffère des statistiques?
 L'apprentissage machine, conceptuellement, est pratiquement un
 synonyme de statistiques. Les deux domaines entretiennent des
@@ -248,8 +251,10 @@ recherche des paramètres), d'inférence, etc. Toutefois l'AM est plus
 axée sur les problèmes dont la modélisation se fait en très haute
 dimension, comme l'analyse d'images ou le traitement du langage. De
 plus, l'accent en AM est davantage mis sur les aspects
-computationnels, par opposition aux mathématiques (bien que le AM
-demeure très mathématique en substance).
+computationnels, par opposition aux mathématiques (bien que l'AM
+demeure très mathématique en substance). En résumé, les statistiques
+ont une saveur mathématique et scientifique, tandis que l'AM a une
+saveur plus mathématique et informatique (ou computationnelle).
 ** Comment représenter les données
 Un problème crucial qui se pose en AM est comment adéquatement
 représenter les données, pour qu'elles soient traitables et
@@ -261,20 +266,22 @@ qui est très étroitement relié au fait que la plupart des techniques
 d'AM touchent de près ou de loin l'algèbre linéaire. Une image, par
 exemple, sera un point dans un espace vectoriel à très haute dimension
 (autant de dimensions qu'il y a de pixels!), et un mot pourrait être
-un point dans un espace vectoriel extrêmement épars (sparse) pour
+un point dans un espace vectoriel extrêmement épars ("sparse") pour
 représenter la présence ou l'absence d'un mot. Il est également
 possible de représenter le sens des mots à l'aide d'un espace
-vectoriel, dont les grands modèles de langage (GML) font usage.
+vectoriel, dont les grands modèles de langage (GML) font usage, comme
+nous le verrons au module 4.
 
 On parle souvent de "caractéristiques" ("features" en anglais) en AM,
 qui sont les valeurs souvent numériques, mais pas toujours, qui
-décrivent les instances, ou des objets que l'on tente de traiter.
+décrivent les instances (donc des "objets") que l'on tente de traiter.
 Classiquement, on fait de "l'ingénierie de caractéristiques" sur les
 données, pour tenter de les transformer de manière à améliorer les
 performances d'un algorithme. Le AM très moderne qui utilise les
 réseaux de neurones profonds tend à faire en sorte qu'on a moins
 besoin de ce genre de techniques, car les transformations sont faites
-automatiquement, par le réseau de neurones lui-même.
+automatiquement, par le réseau de neurones lui-même, comme nous le
+verrons au module 3.
 ** Les différents paradigmes de l'AM
 Il existe plusieurs manières de catégoriser les algorithmes
 d'apprentissage machine, selon leur structure même, mais aussi selon
@@ -283,13 +290,12 @@ Nous allons considérer deux schémas de classement fondamentaux :
 
 - L'apprentissage supervisé versus non-supervisé
 - L'apprentissage paramétrique versus non-paramétrique
-*** Apprentissage supervisé versus non-supervisé
-**** Apprentissage supervisé (classification, regression)
+*** Apprentissage supervisé (classification, regression)
 L'apprentissage supervisé fonctionne à partir de données pour
 lesquelles la "bonne réponse" (i.e. celle qu'on aimerait que
 l'algorithme fournisse systématiquement, une fois entrainé) est
 fournie, en tant que donnée d'entrainement.
-***** Régression
+*** Régression
 Une régression est une famille d'algorithmes d'apprentissage supervisé
 (ou plus classiquement, de modélisation statistique) dont le but est
 de découvrir une fonction numérique continue, au sens classique
@@ -298,18 +304,18 @@ valeur numérique du domaine X vers l'image Y).
 
 - Régression linéaire (ex. à partir du nombre de pièces et l'année de construction, on aimerait prédire le prix d'une maison)
 - Réseau de neurones
-***** Classification
+*** Classification
 Une autre famille d'algorithmes d'apprentissage supervisé tente plutôt
 de découvrir une fonction de classification, qui associe une série de
 caractéristiques à une catégorie particulière (dont le nombre est fini
 et connu d'avance).
 
-- Régression logistique (ex. à partir du nombre d'heures étudiées et du nombre de cours, prédire si un étudiant a gradué ou non)
+- Régression logistique (ex1: à partir du nombre d'heures étudiées et du nombre de cours, prédire si un étudiant a gradué ou non, ex2: à partir des caractéristques des passagers du Titanic, prédire s'ils ont survévu ou non)
 - k-NN
 - Arbres de décision
 - Naive Bayes
 - Réseau de neurones
-**** Apprentissage non-supervisé
+*** Apprentissage non-supervisé
 Nous avons vu qu'une caractéristique essentielle de l'apprentissage
 supervisé est que la "bonne réponse" (qu'il s'agisse du prix réel
 d'une maison, ou la variable binaire oui/non correspondant au fait
@@ -330,14 +336,14 @@ l'algorithme n'aura qu'à découvrir ces trois groupes, et associer
 chaque exemple à un groupe en particulier. Il pourrait être également
 possible que le nombre d'espèces soit à priori inconnu, ce qui rendrait
 la tâche de l'algorithme de classification encore plus difficile.
-***** Partitionnement (clustering)
+*** Partitionnement (clustering)
 Avec un algorithme de partitionnement, on peut découvrir des
 "agrégats", ou des groupes naturels dans les données.
 
 - k-Means
 - DBScan
 - Hierarchical clustering
-***** Réduction de la dimensionnalité
+*** Réduction de la dimensionnalité
 En tentant de réduire la dimensionnalité des données, on peut
 découvrir sa structure inhérente, ce qui est souvent utile en
 visualisation (par exemple, une donnée exprimée en très haute
@@ -347,7 +353,6 @@ dimension peut être plus facile à comprendre ou visualiser en 2d ou
 - PCA
 
 *** Apprentissage paramétrique versus non-paramétrique
-
 Il existe une autre manière, complètement différente, de classifier
 les algorithmes d'apprentissage : si l'algorithme est implémenté à
 l'aide d'une fonction mathématique essentiellement définie par des
@@ -366,7 +371,6 @@ Exemples d'algorithmes non-paramétriques :
 - k-NN
 
 Pour certains algorithmes, la frontière entre ces deux classes est un peu plus floue.
-
 *** Apprentissage par renforcement (RL)
 L'apprentissage par renforcement (APR) est un autre paradigme
 d'apprentissage machine, très différent des précédents dont nous avons
@@ -409,7 +413,6 @@ learning).
 ** Concepts
 - Données: bla bla
 - Représentation: bla bla
-
 *** Paramètres
 
 *** Fonction objective (d'erreur)
@@ -423,3 +426,6 @@ learning).
 *** Implémentation
 
 *** Ingénierie des caractéristiques (feature engineering)
+** Apprentissage machine et programmation
+
+TODO: parler de scikit-learn
