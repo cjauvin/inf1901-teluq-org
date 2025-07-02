@@ -43,8 +43,12 @@ technicien, en cas de besoin, pour régler le problème.
 
 *** Comment transformer une image en nombres?
 
-Transformer une image en une série de nombres n'est pas très compliqué. Il s'agit simplement de considérer la valeur des pixels formant une
-grille sur l'image, et transformer les couleurs en valeurs numériques (typiquement trois valeurs, correspondant à une combinaison précise de rouge, vert et bleu). Une image donnée sera donc transformée en une série de nombres réels.
+Transformer une image en une série de nombres n'est pas très
+compliqué. Il s'agit simplement de considérer la valeur des pixels
+formant une grille sur l'image, et transformer les couleurs en valeurs
+numériques (typiquement trois valeurs, correspondant à une combinaison
+précise de rouge, vert et bleu). Une image donnée sera donc
+transformée en une série de nombres réels.
 
 #+CAPTION: Décomposition d'une image en une série de pixels (nombres)
 #+ATTR_LATEX: :width 0.8\textwidth :float nil
