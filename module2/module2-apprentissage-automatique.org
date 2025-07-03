@@ -5,9 +5,9 @@
 #+LATEX_HEADER: \usepackage{parskip}
 #+LATEX_HEADER: \setcounter{section}{1}
 
-* INF 1901 - Module 2 - Apprentissage machine
-** Qu'est-ce que l'apprentissage machine?
-L'apprentissage machine (AM) est un ensemble de techniques
+* INF 1901 - Module 2 - Apprentissage automatique
+** Qu'est-ce que l'apprentissage automatique?
+L'apprentissage automatique (AA) est un ensemble de techniques
 mathématiques qui permettent de résoudre des problèmes ardus en
 informatique, souvent associés à l'intelligence artificielle (IA) :
 classifier ou reconnaître des images (est-ce un chien ou un chat?),
@@ -17,25 +17,25 @@ et résoudre des problèmes généraux, etc.
 Ces problèmes sont considérés difficiles car il serait ardu d'écrire
 un programme classique pour les résoudre. Un programme classique
 encode essentiellement une série de règles et de procédures logiques
-pour résoudre un problème, tandis qu'un modèle d'AM dérive plutôt sa
+pour résoudre un problème, tandis qu'un modèle d'AA dérive plutôt sa
 solution à partir d'exemples. Le fait qu'on parle d'intelligence de
-manière plus explicite dans le cas d'un modèle d'AM (par rapport à un
+manière plus explicite dans le cas d'un modèle d'AA (par rapport à un
 programme classique) est un peu arbitraire, et matière à débat. Il
-reste que fondamentalement, l'AM est associée à des courants
+reste que fondamentalement, l'AA est associée à des courants
 philosophiques, comme le connexionnisme par exemple, qui sont
 généralement associés à l'étude de l'intelligence humaine ou animale.
 
 #+ATTR_LATEX: :width 0.8\textwidth :float nil
 [[file:./images/abeille.png]]
 
-En général, l'apprentissage machine utilise des données (qu'on appelle
+En général, l'apprentissage automatique utilise des données (qu'on appelle
 parfois des exemples) pour "entrainer" un modèle à l'aide d'un
 algorithme d'apprentissage. Une fois l'entrainement accompli, on peut
 utiliser l'algorithme dans un contexte où c'est utile. Le modèle est
 dynamique et changeant seulement dans la phase d'entrainement, à la
 phase d'utilisation, il est un objet statique.
 
-La notion probablement la plus profonde et philosophique de l'AM, et
+La notion probablement la plus profonde et philosophique de l'AA, et
 celle qui fait en sorte qu'on rattache ce domaine à l'IA, est qu'un
 algorithme d'apprentissage devrait être en mesure de généraliser : si
 j'ai entrainé un modèle à distinguer entre un chien et un chat avec
@@ -49,9 +49,9 @@ nouvelle. Si le modèle a été entrainé avec succès, il devrait pouvoir
 généraliser à n'importe quelle image (par contre, la question se pose
 à savoir ce qui devrait arriver si je lui présente une image d'une
 vache!). Une bonne capacité de généralisation est le but fondamental
-de l'AM et de l'IA en général, et est reliée à ce qu'on entend par
+de l'AA et de l'IA en général, et est reliée à ce qu'on entend par
 intelligence, scientifiquement parlant.
-** L'apprentissage machine dans un scénario imaginé
+** L'apprentissage automatique dans un scénario imaginé
 Imaginez une compagnie où il y a une chaîne de montage avec laquelle
 on assemble des téléviseurs.
 
@@ -71,7 +71,7 @@ On pourrait imaginer placer une caméra vidéo dont le but serait de
 visionner en permanence le flot des appareils en cours d'assemblage,
 pour tenter de détecter les problèmes. Pour ce faire, la caméra
 pourrait transmettre, à intervalles réguliers, les pixels de ce
-qu'elle capte, en tant que données à un modèle d'apprentissage machine
+qu'elle capte, en tant que données à un modèle d'apprentissage automatique
 qui roulerait (en tant que programme) sur un serveur, pas très
 éloigné. Ce modèle convertirait les pixels de la caméra en tant que
 données numériques (les entrées, "inputs"), et effectuerait un calcul
@@ -116,7 +116,7 @@ f(x) = mx + b
 
 où $m$ et $b$ (les valeurs particulières qu'on leur donne) sont les
 paramètres qui déterminent cette fonction particulière. Dans un modèle
-d'apprentissage machine, il y a beaucoup plus de paramètres, mais
+d'apprentissage automatique, il y a beaucoup plus de paramètres, mais
 c'est essentiellement la même idée. Les paramètres d'un modèle sont
 donc essentiellement une sérine de nombres, rien de plus. Il est
 important à ce stade de bien comprendre la distinction entre ces deux
@@ -157,7 +157,7 @@ d'entraînement, qui est constitué d'une série d'images, prises au
 hasard, et accompagnées chacune d'une étiquette binaire ("oui c'est un
 problème", ou "non ce n'est pas un problème"). Il est important de
 comprendre que la création d'un tel ensemble est souvent la partie
-difficile et coûteuse d'un projet d'apprentissage machine, en vertu du
+difficile et coûteuse d'un projet d'apprentissage automatique, en vertu du
 fait que l'étiquette attachée à une image n'est pas donnée à priori.
 Il faut l'établir, ce qui constitue souvent un travail fastidieux et
 répétitif. Il est également nécessaire que cet ensemble d'entrainment
@@ -254,8 +254,8 @@ en capter), il est possible que notre modèle se comporte moins bien,
 et fasse donc plus d'erreurs. Il sera donc peut-être nécessaire de
 procéder à son réentraînement.
 
-** En quoi l'AM diffère de la programmation traditionnelle?
-Bien que l'apprentissage machine requiert de la programmation, il
+** En quoi l'AA diffère de la programmation traditionnelle?
+Bien que l'apprentissage automatique requiert de la programmation, il
 s'agit d'un paradigme entièrement différent de celui de la
 programmation.
 
@@ -265,50 +265,50 @@ programme fait son travail en relation avec des données fournies par
 l'utilisateur. Le programme dans ce cas est une série d'instructions
 symboliques dans un langage de programmation.
 
-Un modèle d'AM (déjà entrainé) va prendre en entrée des données
+Un modèle d'AA (déjà entrainé) va prendre en entrée des données
 fournies par l'utilisateur, et va fournir une réponse appropriée après
 avoir effectué une série d'opérations mathématiques. Si on veut
 absolument parler de "programme" dans ce cas, on peut parler des
 opérations mathématiques (pas nécessairement symboliques) qui sont
 effectuées sur les données, pour les transformer en réponse. Il est
-important de comprendre que même si un modèle d'AM est avant tout un
+important de comprendre que même si un modèle d'AA est avant tout un
 objet mathématique (un modèle avec ses paramètres), son implémentation
 concrète se fait quand même toujours avec un langage de programmation.
-** En quoi l'AM diffère de l'IA?
+** En quoi l'AA diffère de l'IA?
 L'intelligence artificielle est le domaine plus vaste, qui englobe
-l'apprentissage machine et l'intelligence artificielle classique (plus
+l'apprentissage automatique et l'intelligence artificielle classique (plus
 ancienne) et dite symbolique (en anglais on utilise parfois le terme
 GOFAI, "good old fashioned artificial intelligence"). Il est important
 de comprendre que ces deux disciplines sont distinctes et ont des
 méthodes profondément différentes, et l'histoire de leur développement
-est entièrement différente. Dans un certain sens, l'AM est une forme
+est entièrement différente. Dans un certain sens, l'AA est une forme
 plus spécialisée et un peu plus récente d'IA, plus mathématique, moins
 symbolique, et clairement celle qui domine la période actuelle. Les
 mathématiques qui sont le plus souvent associées à l'apprentissage
 machine sont l'algèbre linéaire et les probabilités, qui elles-mêmes
 entretiennent des liens étroits.
-** En quoi l'AM diffère des statistiques?
-L'apprentissage machine, conceptuellement, est pratiquement un
+** En quoi l'AA diffère des statistiques?
+L'apprentissage automatique, conceptuellement, est pratiquement un
 synonyme de statistiques. Les deux domaines entretiennent des
 relations très étroites, et la distinction est parfois assez
 difficile. Dans les deux cas on parle de modèles, d'entraînement (ou
-recherche des paramètres), d'inférence, etc. Toutefois l'AM est plus
+recherche des paramètres), d'inférence, etc. Toutefois l'AA est plus
 axée sur les problèmes dont la modélisation se fait en très haute
 dimension, comme l'analyse d'images ou le traitement du langage. De
-plus, l'accent en AM est davantage mis sur les aspects
-computationnels, par opposition aux mathématiques (bien que l'AM
+plus, l'accent en AA est davantage mis sur les aspects
+computationnels, par opposition aux mathématiques (bien que l'AA
 demeure très mathématique en substance). En résumé, les statistiques
-ont une saveur mathématique et scientifique, tandis que l'AM a une
+ont une saveur mathématique et scientifique, tandis que l'AA a une
 saveur plus mathématique et informatique (ou computationnelle).
 ** Comment représenter les données
-Un problème crucial qui se pose en AM est comment adéquatement
+Un problème crucial qui se pose en AA est comment adéquatement
 représenter les données, pour qu'elles soient traitables et
 compréhensibles à la fois par l'ordinateur ainsi que le modèle (ou
 algorithme) d'apprentissage qu'on veut utiliser. Il existe de
 nombreuses manières de faire cela, mais un thème récurrent est
 l'utilisation d'espaces vectoriels pour représenter les données, ce
 qui est très étroitement relié au fait que la plupart des techniques
-d'AM touchent de près ou de loin l'algèbre linéaire. Une image, par
+d'AA touchent de près ou de loin l'algèbre linéaire. Une image, par
 exemple, sera un point dans un espace vectoriel à très haute dimension
 (autant de dimensions qu'il y a de pixels!), et un mot pourrait être
 un point dans un espace vectoriel extrêmement épars ("sparse") pour
@@ -317,19 +317,19 @@ possible de représenter le sens des mots à l'aide d'un espace
 vectoriel, dont les grands modèles de langage (GML) font usage, comme
 nous le verrons au module 4.
 
-On parle souvent de "caractéristiques" ("features" en anglais) en AM,
+On parle souvent de "caractéristiques" ("features" en anglais) en AA,
 qui sont les valeurs souvent numériques, mais pas toujours, qui
 décrivent les instances (donc des "objets") que l'on tente de traiter.
 Classiquement, on fait de "l'ingénierie de caractéristiques" sur les
 données, pour tenter de les transformer de manière à améliorer les
-performances d'un algorithme. Le AM très moderne qui utilise les
+performances d'un algorithme. Le AA très moderne qui utilise les
 réseaux de neurones profonds tend à faire en sorte qu'on a moins
 besoin de ce genre de techniques, car les transformations sont faites
 automatiquement, par le réseau de neurones lui-même, comme nous le
 verrons au module 3.
-** Les différents paradigmes de l'AM
+** Les différents paradigmes de l'AA
 Il existe plusieurs manières de catégoriser les algorithmes
-d'apprentissage machine, selon leur structure même, mais aussi selon
+d'apprentissage automatique, selon leur structure même, mais aussi selon
 la nature et la structure des problèmes qu'ils tentent de résoudre.
 Nous allons considérer deux schémas de classement fondamentaux :
 
@@ -418,7 +418,7 @@ Exemples d'algorithmes non-paramétriques :
 Pour certains algorithmes, la frontière entre ces deux classes est un peu plus floue.
 *** Apprentissage par renforcement (RL)
 L'apprentissage par renforcement (APR) est un autre paradigme
-d'apprentissage machine, très différent des précédents dont nous avons
+d'apprentissage automatique, très différent des précédents dont nous avons
 parlés. On peut généraliser les apprentissages supervisé et
 non-supervisé en considérant qu'ils sont une forme de "reconnaissance
 de motifs" (en anglais "pattern recognition"). Les mécanismes de ce
@@ -449,12 +449,12 @@ exemple le prompt de ChatGPT) et les données de sortie (sa réponse).
 Le nombre de couches internes fait en sorte que ces réseaux sont
 qualifiés de "profonds", ce qui mène à l'apprentissage profond (deep
 learning).
-** Les applications de l'AM
+** Les applications de l'AA
 - Modélisation
 - Tests médicaux
 - Jeux
 - Chatbot
 - Etc.
-** Apprentissage machine et programmation
+** Apprentissage automatique et programmation
 
 TODO: parler de scikit-learn
